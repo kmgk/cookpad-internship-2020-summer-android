@@ -13,4 +13,16 @@ class FirebaseRecipeDataSource : RecipeDataSource {
             }
             .addOnFailureListener(onFailed)
     }
+
+    override fun createRecipe(
+        recipeEntity: RecipeEntity,
+        onSuccess: () -> Unit,
+        onFailed: (Throwable) -> Unit
+    ) {
+        db.collection("recipes").add(recipeEntity.toMap())
+            .addOnSuccessListener {
+                onSuccess.invoke()
+            }
+            .addOnFailureListener(onFailed)
+    }
 }

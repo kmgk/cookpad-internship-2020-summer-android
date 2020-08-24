@@ -17,7 +17,7 @@ class RecipeListFragment : Fragment(), RecipeListContract.View {
 
     private lateinit var adapter: RecipeListAdapter
 
-    private lateinit var presenter: RecipeListContract.Presenter
+    lateinit var presenter: RecipeListContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater,

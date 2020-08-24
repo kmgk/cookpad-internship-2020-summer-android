@@ -45,7 +45,7 @@
 
     <activity
         android:id="@+id/recipeCreateActivity"
-        android:name="com.cookpad.android.minicookpad.RecipeCreateActivity"
+        android:name="com.cookpad.android.minicookpad.recipecreate.RecipeCreateActivity"
         android:label="RecipeCreateActivity" />
 
 </navigation>

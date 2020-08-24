@@ -1,4 +1,4 @@
-package com.cookpad.android.minicookpad
+package com.cookpad.android.minicookpad.recipecreate
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
