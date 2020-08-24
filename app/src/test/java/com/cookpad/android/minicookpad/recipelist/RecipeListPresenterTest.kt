@@ -46,4 +46,23 @@ class RecipeListPresenterTest {
             assertThat(it).isEqualTo(recipeList)
         }
     }
+    @Test
+    fun verifyOnRecipeListRequestedError() {
+        // given
+        val error = Throwable("error")
+        whenever(interactor.fetchRecipeList(any(), any())).then {
+            (it.arguments[1] as ((Throwable) -> Unit)).invoke(error)
+        }
+
+        // when
+        presenter.onRecipeListRequested()
+
+        // then
+        val argumentCaptor = argumentCaptor<Throwable>()
+        verify(interactor).fetchRecipeList(any(), any())
+        verify(view).renderError(argumentCaptor.capture())
+        argumentCaptor.firstValue.also {
+            assertThat(it).isEqualTo(error)
+        }
+    }
 }
