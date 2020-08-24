@@ -42,10 +42,10 @@ class RecipeListPresenterTest {
         val argumentCaptor = argumentCaptor<List<RecipeListContract.Recipe>>()
         verify(interactor).fetchRecipeList(any(), any())
         verify(view).renderRecipeList(argumentCaptor.capture())
-        argumentCaptor.firstValue.also {
-            assertThat(it).isEqualTo(recipeList)
-        }
+
+        assertThat(argumentCaptor.firstValue).isEqualTo(recipeList)
     }
+
     @Test
     fun verifyOnRecipeListRequestedError() {
         // given
@@ -61,8 +61,9 @@ class RecipeListPresenterTest {
         val argumentCaptor = argumentCaptor<Throwable>()
         verify(interactor).fetchRecipeList(any(), any())
         verify(view).renderError(argumentCaptor.capture())
-        argumentCaptor.firstValue.also {
-            assertThat(it).isEqualTo(error)
-        }
+        
+        assertThat(argumentCaptor.firstValue).isEqualTo(error)
+    }
     }
 }
+
