@@ -1,13 +1,13 @@
 package com.cookpad.android.minicookpad.recipelist
 
-import com.cookpad.android.minicookpad.datasource.Recipe
+import com.cookpad.android.minicookpad.datasource.RecipeEntity
 import com.cookpad.android.minicookpad.datasource.RecipeDataSource
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Before
 import org.junit.Test
 
-class RecipeListInteractorTest {
+class RecipeEntityListInteractorTest {
     lateinit var recipeDataSource: RecipeDataSource
 
     lateinit var interactor: RecipeListInteractor
@@ -23,7 +23,7 @@ class RecipeListInteractorTest {
         // given
         val onSuccess: (List<RecipeListContract.Recipe>) -> Unit = mock()
         val recipeList = listOf(
-            Recipe(
+            RecipeEntity(
                 id = "xxx",
                 title = "おいしいきゅうりの塩もみ",
                 imagePath = "images/recipe.png",
@@ -32,7 +32,7 @@ class RecipeListInteractorTest {
             )
         )
         whenever(recipeDataSource.fetchAll(any(), any())).then {
-            (it.arguments[0] as (List<Recipe>) -> Unit).invoke(recipeList)
+            (it.arguments[0] as (List<RecipeEntity>) -> Unit).invoke(recipeList)
         }
 
         // when
@@ -55,15 +55,7 @@ class RecipeListInteractorTest {
     fun verifyFetchRecipeListError() {
         // given
         val onFailed: (Throwable) -> Unit = mock()
-        val recipeList = listOf(
-            Recipe(
-                id = "xxx",
-                title = "おいしいきゅうりの塩もみ",
-                imagePath = "images/recipe.png",
-                steps = listOf("きゅうりを切る", "塩をまく", "もむ"),
-                authorName = "クックパッド味"
-            )
-        )
+
         whenever(recipeDataSource.fetchAll(any(), any())).then {
             (it.arguments[1] as (Throwable) -> Unit).invoke(Throwable())
         }

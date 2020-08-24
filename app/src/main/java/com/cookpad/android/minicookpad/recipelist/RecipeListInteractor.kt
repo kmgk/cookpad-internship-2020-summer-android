@@ -1,7 +1,7 @@
 package com.cookpad.android.minicookpad.recipelist
 
 import com.cookpad.android.minicookpad.datasource.RecipeDataSource
-import com.cookpad.android.minicookpad.datasource.Recipe
+import com.cookpad.android.minicookpad.datasource.RecipeEntity
 
 class RecipeListInteractor(
     private val recipeDataSource: RecipeDataSource
@@ -16,7 +16,7 @@ class RecipeListInteractor(
         )
     }
 
-    private fun Recipe.translate(): RecipeListContract.Recipe = RecipeListContract.Recipe(
+    private fun RecipeEntity.translate(): RecipeListContract.Recipe = RecipeListContract.Recipe(
         id = this.id,
         title = this.title,
         imagePath = this.imagePath ?: "",

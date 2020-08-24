@@ -5,11 +5,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 class FirebaseRecipeDataSource : RecipeDataSource {
     private val db = FirebaseFirestore.getInstance()
 
-    override fun fetchAll(onSuccess: (List<Recipe>) -> Unit, onFailed: (Throwable) -> Unit) {
+    override fun fetchAll(onSuccess: (List<RecipeEntity>) -> Unit, onFailed: (Throwable) -> Unit) {
         db.collection("recipes")
             .get()
             .addOnSuccessListener { result ->
-                onSuccess.invoke(result.mapNotNull { Recipe.fromDocument(it) })
+                onSuccess.invoke(result.mapNotNull { RecipeEntity.fromDocument(it) })
             }
             .addOnFailureListener(onFailed)
     }

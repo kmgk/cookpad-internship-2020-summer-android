@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.cookpad.android.minicookpad.databinding.ActivityRecipeDetailBinding
-import com.cookpad.android.minicookpad.datasource.Recipe
+import com.cookpad.android.minicookpad.datasource.RecipeEntity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 
@@ -34,7 +34,7 @@ class RecipeDetailActivity : AppCompatActivity() {
             .document(args.recipeId)
             .get()
             .addOnSuccessListener { document ->
-                Recipe.fromDocument(document)?.let { recipe ->
+                RecipeEntity.fromDocument(document)?.let { recipe ->
                     supportActionBar?.title = recipe.title
                     recipe.imagePath?.let {
                         Glide.with(this)
