@@ -50,3 +50,30 @@ class RecipeListInteractorTest {
             assertThat(it.authorName).isEqualTo("クックパッド味")
         }
     }
+
+    @Test
+    fun verifyFetchRecipeListError() {
+        // given
+        val onFailed: (Throwable) -> Unit = mock()
+        val recipeList = listOf(
+            Recipe(
+                id = "xxx",
+                title = "おいしいきゅうりの塩もみ",
+                imagePath = "images/recipe.png",
+                steps = listOf("きゅうりを切る", "塩をまく", "もむ"),
+                authorName = "クックパッド味"
+            )
+        )
+        whenever(recipeDataSource.fetchAll(any(), any())).then {
+            (it.arguments[1] as (Throwable) -> Unit).invoke(Throwable())
+        }
+
+        // when
+        interactor.fetchRecipeList({}, onFailed)
+
+        // then
+        val argumentCaptor = argumentCaptor<Throwable>()
+        verify(recipeDataSource).fetchAll(any(), any())
+        verify(onFailed).invoke(argumentCaptor.capture())
+    }
+}
