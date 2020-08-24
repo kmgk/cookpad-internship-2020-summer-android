@@ -61,9 +61,25 @@ class RecipeListPresenterTest {
         val argumentCaptor = argumentCaptor<Throwable>()
         verify(interactor).fetchRecipeList(any(), any())
         verify(view).renderError(argumentCaptor.capture())
-        
+
         assertThat(argumentCaptor.firstValue).isEqualTo(error)
     }
+
+    @Test
+    fun verifyOnRecipeDetailRequested() {
+        // given
+        val recipeId = "sampleId"
+        val recipeName = "sampleName"
+
+        // when
+        presenter.onRecipeDetailRequested(recipeId, recipeName)
+
+        // then
+        val argumentCaptor = argumentCaptor<String>()
+        verify(routing).navigateRecipeDetail(argumentCaptor.capture(), argumentCaptor.capture())
+
+        assertThat(argumentCaptor.firstValue).isEqualTo(recipeId)
+        assertThat(argumentCaptor.secondValue).isEqualTo(recipeName)
     }
 }
 
