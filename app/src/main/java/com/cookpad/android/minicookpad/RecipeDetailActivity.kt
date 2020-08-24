@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.cookpad.android.minicookpad.databinding.ActivityRecipeDetailBinding
+import com.cookpad.android.minicookpad.datasource.Recipe
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 

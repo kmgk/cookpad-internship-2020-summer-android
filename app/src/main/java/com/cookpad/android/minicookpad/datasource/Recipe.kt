@@ -1,7 +1,8 @@
-package com.cookpad.android.minicookpad
+package com.cookpad.android.minicookpad.datasource
 
 import com.google.firebase.firestore.DocumentSnapshot
 import java.security.SecureRandom
+
 
 data class Recipe(
     val id: String = generateId(),

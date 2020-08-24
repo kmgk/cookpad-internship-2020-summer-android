@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="com.cookpad.android.minicookpad.RecipeListFragment"
+        android:name="com.cookpad.android.minicookpad.recipelist.RecipeListFragment"
         android:label="RecipeListFragment"
         tools:layout="@layout/fragment_recipe_list"
         >
