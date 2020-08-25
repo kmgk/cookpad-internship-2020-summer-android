@@ -28,7 +28,8 @@ class LoginFragment : Fragment(), LoginContract.View {
                     SharedPreferenceUserDataSource(requireContext()),
                     FirebaseUserDataSource()
                 )
-            )
+            ),
+            routing = LoginRouting(this)
         )
 
         presentor.onAutoLogin()

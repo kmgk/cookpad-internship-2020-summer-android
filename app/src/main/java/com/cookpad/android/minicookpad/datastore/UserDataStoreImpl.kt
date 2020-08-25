@@ -11,20 +11,14 @@ class UserDataStoreImpl(
 
     override fun fetch(
         name: String,
-        onSuccess: (UserEntity?) -> Unit,
+        onSuccess: () -> Unit,
         onFailed: (Throwable) -> Unit
     ) {
         remoteUserDataSource.fetch(
             name,
             onSuccess = {
                 if (it != null) {
-                    localUserDataSource.save(
-                        it,
-                        onSuccess = {
-                            onSuccess
-                        },
-                        onFailed = onFailed
-                    )
+                    localUserDataSource.save(it, onSuccess, onFailed)
                 }
             },
             onFailed = onFailed

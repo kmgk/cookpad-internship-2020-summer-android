@@ -1,7 +1,5 @@
 package com.cookpad.android.minicookpad.login
 
-import androidx.navigation.fragment.findNavController
-
 class LoginPresentor(
     val view: LoginFragment,
     val interactor: LoginInteractor,

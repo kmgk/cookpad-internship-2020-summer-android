@@ -18,9 +18,7 @@ class LoginInteractor(
         onSuccess: () -> Unit,
         onFailed: (Throwable) -> Unit
     ) {
-        userDataStore.fetch(user.name, {
-            onSuccess
-        }, onFailed)
+        userDataStore.fetch(user.name, onSuccess, onFailed)
     }
 
     override fun register(
