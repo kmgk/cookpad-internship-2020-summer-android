@@ -59,20 +59,26 @@ class RecipeCreateActivity : AppCompatActivity(), RecipeCreateContract.View {
         }
 
         binding.saveButton.setOnClickListener {
-            presenter.onRecipeCreated(createRecipe())
+            createRecipe()
         }
     }
 
-    private fun createRecipe(): RecipeCreateContract.Recipe {
-        return RecipeCreateContract.Recipe(
+    private fun createRecipe() {
+        val uri = viewModel.imageUri.value
+        if (uri == null) {
+            renderRecipeCreateFailedToast()
+            return
+        }
+        val recipe = RecipeCreateContract.Recipe(
             binding.title.text.toString(),
-            viewModel.imageUri.value ?: "",
+            uri,
             listOf(
                 binding.step1.text.toString(),
                 binding.step2.text.toString(),
                 binding.step3.text.toString()
             )
         )
+        presenter.onRecipeCreated(recipe)
     }
 
 
