@@ -54,4 +54,56 @@ class RecipeCreateInteractorTest {
             assertThat(it.authorName).isEqualTo("クックパッド味")
         }
     }
+
+    @Test
+    fun verifyCreateRecipeErrorOnCreateRecipe() {
+        // given
+        val onFailed: (Throwable) -> Unit = mock()
+        val error = Throwable("error")
+        val recipe = RecipeCreateContract.Recipe(
+            title = "title",
+            imageUri = "imageUri",
+            steps = listOf("step")
+        )
+        whenever(imageDataSource.saveImage(any(), any(), any())).then {
+            (it.arguments[1] as (String) -> Unit).invoke(recipe.imageUri)
+        }
+        whenever(recipeDataSource.createRecipe(any(), any(), any())).then {
+            (it.arguments[2] as (Throwable) -> Unit).invoke(error)
+        }
+
+        // when
+        interactor.createRecipe(recipe, {}, onFailed)
+
+        // then
+        val argumentCaptor = argumentCaptor<(Throwable) -> Unit>()
+        verify(imageDataSource).saveImage(any(), any(), argumentCaptor.capture())
+        verify(recipeDataSource).createRecipe(any(), any(), argumentCaptor.capture())
+        verify(onFailed).invoke(error)
+    }
+
+    @Test
+    fun verifyCreateRecipeErrorOnSaveImage() {
+        // given
+        val onFailed: (Throwable) -> Unit = mock()
+        val error = Throwable("error")
+        val recipe = RecipeCreateContract.Recipe(
+            title = "title",
+            imageUri = "imageUri",
+            steps = listOf("step")
+        )
+        whenever(imageDataSource.saveImage(any(), any(), any())).then {
+            (it.arguments[2] as (Throwable) -> Unit).invoke(error)
+        }
+
+        // when
+        interactor.createRecipe(recipe, {}, onFailed)
+
+        // then
+        val argumentCaptor = argumentCaptor<(Throwable) -> Unit>()
+        verify(imageDataSource).saveImage(any(), any(), argumentCaptor.capture())
+        verify(recipeDataSource, never()).createRecipe(any(), any(), argumentCaptor.capture())
+        verify(onFailed).invoke(error)
+    }
+
 }
