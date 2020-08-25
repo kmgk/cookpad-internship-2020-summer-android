@@ -22,6 +22,6 @@ interface RecipeCreateContract {
     data class Recipe(
         val title: String,
         val imageUri: String,
-        val Steps: List<String>
+        val steps: List<String>
     )
 }

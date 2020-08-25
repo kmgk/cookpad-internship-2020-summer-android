@@ -26,7 +26,7 @@ class RecipeCreateInteractor(
         RecipeEntity(
             title = this.title,
             imagePath = imagePath,
-            steps = this.Steps,
+            steps = this.steps,
             authorName = "クックパッド味"
         )
 }
