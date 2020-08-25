@@ -56,7 +56,7 @@ class RecipeCreateInteractorTest {
     }
 
     @Test
-    fun verifyCreateRecipeErrorOnCreateRecipe() {
+    fun verifyCreateRecipeErrorOnRecipeDataSource() {
         // given
         val onFailed: (Throwable) -> Unit = mock()
         val error = Throwable("error")
@@ -83,7 +83,7 @@ class RecipeCreateInteractorTest {
     }
 
     @Test
-    fun verifyCreateRecipeErrorOnSaveImage() {
+    fun verifyCreateRecipeErrorOnImageDataSource() {
         // given
         val onFailed: (Throwable) -> Unit = mock()
         val error = Throwable("error")
