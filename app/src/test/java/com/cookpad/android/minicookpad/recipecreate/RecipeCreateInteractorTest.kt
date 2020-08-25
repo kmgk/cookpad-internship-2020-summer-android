@@ -22,8 +22,9 @@ class RecipeCreateInteractorTest {
     }
 
     @Test
-    fun verifyCreateRecipe() {
+    fun verifyCreateRecipeSuccess() {
         // given
+        val onSuccess: () -> Unit = mock()
         val recipe = RecipeCreateContract.Recipe(
             title = "title",
             imageUri = "imageUri",
@@ -32,15 +33,19 @@ class RecipeCreateInteractorTest {
         whenever(imageDataSource.saveImage(any(), any(), any())).then {
             (it.arguments[1] as (String) -> Unit).invoke(recipe.imageUri)
         }
+        whenever(recipeDataSource.createRecipe(any(), any(), any())).then {
+            (it.arguments[1] as () -> Unit).invoke()
+        }
 
         // when
-        interactor.createRecipe(recipe, {}, {})
+        interactor.createRecipe(recipe, onSuccess, {})
 
         // then
         val argumentCaptor = argumentCaptor<RecipeEntity>()
         verify(imageDataSource).saveImage(any(), any(), any())
         verify(recipeDataSource).createRecipe(argumentCaptor.capture(), any(), any())
-        
+        verify(onSuccess).invoke()
+
         argumentCaptor.firstValue.also {
             assertThat(it.id).isNotEmpty()
             assertThat(it.title).isEqualTo(recipe.title)
