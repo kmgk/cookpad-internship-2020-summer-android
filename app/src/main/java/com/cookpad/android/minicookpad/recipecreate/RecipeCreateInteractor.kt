@@ -15,27 +15,18 @@ class RecipeCreateInteractor(
     ) {
         imageDataSource.saveImage(recipe.imageUri, onSuccess = {
             recipeDataSource.createRecipe(
-                translateRecipe(recipe, it),
+                recipe.translate(it),
                 onSuccess = onSuccess,
                 onFailed = onFailed
             )
         }, onFailed = onFailed)
     }
 
-    private fun translateRecipe(
-        recipe: RecipeCreateContract.Recipe,
-        imagePath: String
-    ): RecipeEntity = RecipeEntity(
-        title = recipe.title,
-        imagePath = imagePath,
-        steps = recipe.Steps,
-        authorName = "クックパッド味"
-    )
-
-    private fun RecipeCreateContract.Recipe.translate(imagePath: String):RecipeEntity = RecipeEntity(
-        title = this.title,
-        imagePath = imagePath,
-        steps = this.Steps,
-        authorName = "クックパッド味"
-    )
+    private fun RecipeCreateContract.Recipe.translate(imagePath: String): RecipeEntity =
+        RecipeEntity(
+            title = this.title,
+            imagePath = imagePath,
+            steps = this.Steps,
+            authorName = "クックパッド味"
+        )
 }
